@@ -59,7 +59,7 @@ namespace Bookweb
                 endpoints.MapRazorPages();
             });
 
-            //updateUsers(app.ApplicationServices);
+            updateUsers(app.ApplicationServices);
         }
         private async void updateUsers(IServiceProvider services)
         {
