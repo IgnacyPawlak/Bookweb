@@ -14,5 +14,7 @@ namespace Bookweb.Models
         public string Author { get; set; }
 
         public string Description { get; set; }
+
+        public bool IsAccepted { get; set; }
     }
 }

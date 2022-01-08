@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<Book>
+@using Microsoft.AspNetCore.Identity
+@using Bookweb.Areas.Identity.Data
+@inject UserManager<BookwebUser> usermanager
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -6,16 +9,64 @@
 }
 
 <div>
-	<span><a href="/Book/Add">Add new book</a></span>
+    <span><a href="/Book/Add">Add new book</a></span>
 </div>
-@foreach (var b in Model)
-	{
-	<div>
-		<span>@b.ID</span>
-		<span>@b.Title</span>
-		<span>@b.Author</span>
-		<span>@b.Description</span>
-		<span><a href="/Book/Remove?id=@b.ID">Remove</a></span>
-		<span><a href="/Book/AddToFavorite?id=@b.ID">Add to Favorite</a></span>
-	</div>
-	}
+@if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
+{
+    List<Book> books = new List<Book>();
+    foreach (var b in Model)
+    {
+        books.Add(b);
+        if (b.IsAccepted == false)
+        {
+            if (User.IsInRole("ADMIN"))
+            {
+                <div>
+                    <span>@books.Count</span>
+                    <span>@b.Title</span>
+                    <span>@b.Author</span>
+                    <span>@b.Description</span>
+                    @if (User.IsInRole("ADMIN"))
+                    {
+                        <span><a href="/Book/Remove?id=@b.ID">Remove</a></span>
+                        <span><a href="/Book/Accept?id=@b.ID">Accept</a></span>
+                    }
+                    @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
+                    {
+                        <span><a href="/Book/AddToFavorite?id=@b.ID">Add to Favorite</a></span>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                <span>@books.Count</span>
+                <span>@b.Title</span>
+                <span>@b.Author</span>
+                <span>@b.Description</span>
+                @if (User.IsInRole("ADMIN"))
+                {
+                    <span><a href="/Book/Remove?id=@b.ID">Remove</a></span>
+                }
+                @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
+                {
+                    <span><a href="/Book/AddToFavorite?id=@b.ID">Add to Favorite</a></span>
+                }
+            </div>
+        }
+    }
+}
+else
+{
+    List<Book> books = new List<Book>();
+    foreach (var b in Model)
+    {
+        <div>
+            <span>@books.Count</span>
+            <span>@b.Title</span>
+            <span>@b.Author</span>
+            <span>@b.Description</span>
+        </div>
+    }
+}

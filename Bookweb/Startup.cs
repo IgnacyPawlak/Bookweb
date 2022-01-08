@@ -72,9 +72,29 @@ namespace Bookweb
 
 
                 var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
-                await roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" });
+                if(!await roleManager.RoleExistsAsync("Admin"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" });
+                }
 
-                await userManager.AddToRoleAsync(user, "ADMIN");
+                if (!await roleManager.RoleExistsAsync("USER"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole { Name = "USER" });
+                }
+
+                if (!await userManager.IsInRoleAsync(user, "ADMIN"))
+                {
+                    await userManager.AddToRoleAsync(user, "ADMIN");
+                    await userManager.UpdateAsync(user);
+                }
+
+                user = await userManager.FindByEmailAsync("test@test.com");
+
+                if (!await userManager.IsInRoleAsync(user, "USER"))
+                {
+                    await userManager.AddToRoleAsync(user, "USER");
+                    await userManager.UpdateAsync(user);
+                }
             }
         }
     }

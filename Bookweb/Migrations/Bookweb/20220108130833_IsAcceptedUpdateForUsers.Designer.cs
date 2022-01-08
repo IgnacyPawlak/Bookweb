@@ -3,14 +3,16 @@ using System;
 using Bookweb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bookweb.Migrations.Bookweb
 {
     [DbContext(typeof(BookwebContext))]
-    partial class BookwebContextModelSnapshot : ModelSnapshot
+    [Migration("20220108130833_IsAcceptedUpdateForUsers")]
+    partial class IsAcceptedUpdateForUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
