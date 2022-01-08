@@ -142,11 +142,15 @@ namespace Bookweb.Controllers
             }
             return RedirectToAction("FavoriteList");
         }
-
+        [HttpPost]
         public IActionResult SearchByTitle(string title)
         {
             DatabaseContext database = new DatabaseContext();
-            return View(database.Books.First(b => b.Title == title));
+            string booktitle = title;
+            return View(database.Books.Where(b=>b.Title.ToLower().Contains(booktitle.ToLower()))
+                .Union(database.Books.Where(b => b.Author.ToLower().Contains(booktitle.ToLower()))));
         }
+
+
     }
 }

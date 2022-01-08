@@ -16,7 +16,7 @@
 else
 {
     List<FavoriteBook> list = new List<FavoriteBook>();
-    foreach (var b in Model)
+    foreach (var b in Model.OrderBy(b=>b.Title))
     {
         var user = await usermanager.GetUserAsync(User);
         var userid = user?.Id;
