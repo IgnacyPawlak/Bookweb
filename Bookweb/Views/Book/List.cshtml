@@ -9,16 +9,17 @@
 @{
 }
 
-<div>
-    <span><a href="/Book/Add">Add new book</a></span>
+<div class="row w-100 justify-content-end">
+   <input type="submit" href="/Book/Add" class="col-3 btn btn-lg btn-default" value="Add new book"/>
 </div>
 @using (Html.BeginForm("SearchByTitle", "Book", FormMethod.Post))
             {
-                <input type="text" placeholder="Search by title" id="title" name="title"/>
-                <input type="submit" value="Search"/>
+                <div class="row w-100">
+                    <input type="text" class="col col-9 btn-lg" placeholder="Search by title..." id="title" name="title"/>
+                    <input type="submit" class="col col-3 btn btn-lg btn-primary" value="Search"/>
+                </div>
             }
-<div>
-</div>
+<div class="border-top">
 @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
 {
     List<Book> books = new List<Book>();
@@ -78,3 +79,5 @@ else
         </div>
     }
 }
+
+    </div>

@@ -3,14 +3,9 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4  mt-5 mb-5">Welcome to Book Web</h1>
+    <h1 class="display-4">Welcome to Book Web</h1>
 
-    <button id="login-button" class="btn btn-lg btn-default m-2 w-25">Log in</button>
-    <button id="sign-up-button" class="btn btn-lg btn-primary m-2 w-25">Sign up</button>
+    <a id="register" class="btn btn-lg btn-default m-2 w-25" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+    <a id="login" class="btn btn-lg btn-primary m-2 w-25" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
 
-</div>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

@@ -1,14 +1,16 @@
-﻿/* Sticky footer styles
--------------------------------------------------- */
+﻿@import url("cusotmized-bootstrap.css");
 html {
     font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+   /* margin-bottom: 60px; */
+    height: calc(100vh);
+   
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
 
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -27,17 +29,6 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
 
 .footer {
     position: absolute;
@@ -47,14 +38,47 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
-
-
 .contents {
-    background-color: lightgray;
-    background-image: url('../media/images/books-background.jpg');
-    opacity: 0.8;
-    color: white;
-    position: absolute;
-    height: calc(100% - 112px);
+    position: relative; 
+    height: 100vh;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contents::before {    
+      content: "";
+      background-image: url('../media/images/books-background.jpg');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.85;
+}
+
+/*. {  
+    color: white;
+    position: relative; 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('');
+    background-size: cover;
+}
+*/
+
+.contents .container{
+    color:white;
+    position: relative;
+    background-color: var(--content-container-background);
+    opacity: 1;
+    border-radius: 1em;
+    box-sizing: border-box;
+    margin-top: 1em;
+    padding: 2em;
 }
