@@ -1,11 +1,27 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using Bookweb.Areas.Identity.Data
+
+@inject SignInManager<BookwebUser> SignInManager
+@inject UserManager<BookwebUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to Book Web</h1>
+    <h1 class="display-4">Welcome back, </h1>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <p>Welcome back, @UserManager.GetUserName(User)!</p>
+        <script src="https://wordsmith.org/words/quote2.js" type="text/javascript">
+        </script>
 
-    <a id="register" class="btn btn-lg btn-default m-2 w-25" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-    <a id="login" class="btn btn-lg btn-primary m-2 w-25" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
-
+    }
+    else
+    {
+        <a id="register" class="btn btn-lg btn-default m-2 w-25" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+        <a id="login" class="btn btn-lg btn-primary m-2 w-25" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+        <script src="https://wordsmith.org/words/quote2.js" type="text/javascript">
+        </script>
+    }
 </div>
