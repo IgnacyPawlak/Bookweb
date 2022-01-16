@@ -50,7 +50,14 @@ namespace Bookweb.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [StringLength(20, ErrorMessage = "Choose a name up to 20 characters long.")]
+            [DataType(DataType.Text)]
+            [Display(Name = "Name")]
+            public string Username { get; set; }
+
+            [Required]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
         }
 
@@ -122,7 +129,7 @@ namespace Bookweb.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new BookwebUser { UserName = Input.Email, Email = Input.Email };
+                var user = new BookwebUser { UserName = Input.Username, Email = Input.Email };
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
