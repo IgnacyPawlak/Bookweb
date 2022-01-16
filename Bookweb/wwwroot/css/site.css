@@ -83,17 +83,21 @@ button.accept-policy {
     padding: 2em;
 }
 
+
+
+
 /*quote of the day style*/
 .AWAD_title {
-    color: silver;
+    font-size: 40px;
+    color: #808080;
     font-weight: bold;
 }
 
 .AWAD_quotation {
     text-decoration: none;
-    color: green;
+    color: white;
 }
 
 .AWAD_byline {
-    font-style: italic;
+    color: #808080;
 }
