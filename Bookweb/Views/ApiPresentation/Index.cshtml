@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@section Scripts {
+    <script src="~/js/api-presentation.js" asp-append-version="true"></script>
+}
+
+<button id="download-list-of-books" class="btn btn-dark">DOWNLOAD LIST OF BOOKS</button>
+<div id="list-container"></div>
+<br /><br />
+
+<label >FOR PRESENTATION PURPOSES we present You ApiKey: thisisaverysafekeythatnoonecanreproducecuzofnextcharacters*&&*(8941198**7&39414unioujnfi8233u21983u</label>
+
+<div class="form-group">
+    <label>Book title</label>
+    <input id="input-title" type="text" class="form-control" />
+</div>
+
+<div class="form-group">
+    <label>Book author</label>
+    <input id="input-author" type="text" class="form-control" />
+</div>
+
+<div class="form-group">
+    <label>Book description</label>
+    <input id="input-description" type="text" class="form-control" />
+</div>
+
+<div class="form-group">
+    <label>Api Key</label>
+    <input id="input-api-key" type="text" class="form-control" placeholder="Paste here whats in ApiKey section"/>
+</div>
+
+<button id="post-book" class="btn btn-dark">Post book</button> 
+
+    <div class="form-group">
+        <input type="number" id="input-id" class="form-control" placeholder="Insert Id here"/>
+    </div>
+
+    <div class="form-group">
+        <label>Api Key</label>
+        <input id="input-api-key2" type="text" class="form-control" placeholder="Paste here whats in ApiKey section" />
+    </div>
+
+
+<button id="delete-book" class="btn btn-dark">Delete book with that id</button>
