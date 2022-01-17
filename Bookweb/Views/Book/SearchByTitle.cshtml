@@ -6,6 +6,17 @@
 *@
 @{
 }
+
+@using (Html.BeginForm("SearchByTitle", "Book", FormMethod.Post))
+{
+<div class="row w-100">
+    <input type="text" class="col col-6 btn-lg" placeholder="Search by title..." id="title" name="title" />
+    <input type="submit" class="col col-3 btn btn-lg btn-primary" value="Search" />
+    <a class="col col-3 btn btn-lg btn-default" asp-area="" asp-controller="Book" asp-action="List">See all books</a>
+
+</div>
+}
+
 @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
 {
     List<Book> books = new List<Book>();
