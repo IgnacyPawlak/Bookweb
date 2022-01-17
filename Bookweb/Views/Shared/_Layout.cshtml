@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Bookweb.Areas.Identity.Data
+
+@inject SignInManager<BookwebUser> SignInManager
+@inject UserManager<BookwebUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,15 +25,21 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                   <partial name="_LoginPartial"/> 
+                    <partial name="_LoginPartial" />
+                   
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="List">Find a book</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="FavoriteList">My favorite books</a>
-                        </li>
-                    </ul>
+                        @if (SignInManager.IsSignedIn(User)) //if logged in (any role)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="FavoriteList">My favorite books</a>
+                            </li>
+                        }
+                        </ul>
+                  
+                    
                 </div>
             </div>
         </nav>
