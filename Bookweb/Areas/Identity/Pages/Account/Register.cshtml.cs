@@ -46,12 +46,12 @@ namespace Bookweb.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            //Daga----
-            [Required]
-            [StringLength(20, ErrorMessage = "Choose a name up to 20 characters long.")]
-            [DataType(DataType.Text)]
-            [Display(Name = "Name")]
-            public string Username { get; set; }
+            ////Daga----
+            //[Required]
+            //[StringLength(20, ErrorMessage = "Choose a name up to 20 characters long.")]
+            //[DataType(DataType.Text)]
+            //[Display(Name = "Name")]
+            //public string Username { get; set; }
 
             [Required]
             [EmailAddress]
@@ -82,7 +82,7 @@ namespace Bookweb.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new BookwebUser { UserName = Input.Username, Email = Input.Email };
+                var user = new BookwebUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

@@ -70,6 +70,10 @@ namespace Bookweb
                 user.EmailConfirmed = true;
                 await userManager.UpdateAsync(user);
 
+                var admin = await userManager.FindByEmailAsync("admin@example.com");
+                admin.EmailConfirmed = true;
+                await userManager.UpdateAsync(admin);
+
 
                 var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
                 if(!await roleManager.RoleExistsAsync("Admin"))
@@ -82,10 +86,12 @@ namespace Bookweb
                     await roleManager.CreateAsync(new IdentityRole { Name = "USER" });
                 }
 
-                if (!await userManager.IsInRoleAsync(user, "ADMIN"))
+                admin = await userManager.FindByEmailAsync("admin@example.com");
+
+                if (!await userManager.IsInRoleAsync(admin, "ADMIN"))
                 {
-                    await userManager.AddToRoleAsync(user, "ADMIN");
-                    await userManager.UpdateAsync(user);
+                    await userManager.AddToRoleAsync(admin, "ADMIN");
+                    await userManager.UpdateAsync(admin);
                 }
 
                 user = await userManager.FindByEmailAsync("test@test.com");
@@ -95,6 +101,9 @@ namespace Bookweb
                     await userManager.AddToRoleAsync(user, "USER");
                     await userManager.UpdateAsync(user);
                 }
+
+
+               
             }
         }
     }
