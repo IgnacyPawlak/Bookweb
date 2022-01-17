@@ -147,8 +147,15 @@ namespace Bookweb.Controllers
         {
             DatabaseContext database = new DatabaseContext();
             string booktitle = title;
-            return View(database.Books.Where(b=>b.Title.ToLower().Contains(booktitle.ToLower()))
+            if ( !string.IsNullOrEmpty(booktitle))
+            {
+                return View(database.Books.Where(b=>b.Title.ToLower().Contains(booktitle.ToLower()))
                 .Union(database.Books.Where(b => b.Author.ToLower().Contains(booktitle.ToLower()))));
+
+            }else
+            {
+                return RedirectToAction("List");
+            }
         }
 
 
