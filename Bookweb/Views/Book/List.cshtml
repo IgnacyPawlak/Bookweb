@@ -75,8 +75,9 @@
     else
     {
         List<Book> books = new List<Book>();
-        foreach (var b in Model.OrderBy(b => b.Title))
+        foreach (var b in Model.Where(b => b.IsAccepted == true).OrderBy(b => b.Title))
         {
+            books.Add(b);
             <div>
                 <span>@books.Count</span>
                 <span>@b.Title</span>

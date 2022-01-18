@@ -71,16 +71,21 @@ namespace Bookweb
             {
                 var userManager = (UserManager<BookwebUser>)scope.ServiceProvider.GetService(typeof(UserManager<BookwebUser>));
                 var user = await userManager.FindByEmailAsync("user@example.com");
-                user.EmailConfirmed = true;
-                await userManager.UpdateAsync(user);
+                if (user != null)
+                {
+                    user.EmailConfirmed = true;
+                    await userManager.UpdateAsync(user);
+                }
 
                 var admin = await userManager.FindByEmailAsync("admin@example.com");
-                admin.EmailConfirmed = true;
-                await userManager.UpdateAsync(admin);
-
+                if (admin != null)
+                {
+                    admin.EmailConfirmed = true;
+                    await userManager.UpdateAsync(admin);
+                }
 
                 var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
-                if(!await roleManager.RoleExistsAsync("Admin"))
+                if(!await roleManager.RoleExistsAsync("ADMIN"))
                 {
                     await roleManager.CreateAsync(new IdentityRole { Name = "ADMIN" });
                 }
@@ -92,15 +97,16 @@ namespace Bookweb
 
                 admin = await userManager.FindByEmailAsync("admin@example.com");
 
-                if (!await userManager.IsInRoleAsync(admin, "ADMIN"))
+                if (admin!=null && !await userManager.IsInRoleAsync(admin, "ADMIN"))
                 {
+                    await userManager.RemoveFromRoleAsync(admin, "USER");
                     await userManager.AddToRoleAsync(admin, "ADMIN");
                     await userManager.UpdateAsync(admin);
                 }
 
                 user = await userManager.FindByEmailAsync("user@example.com");
 
-                if (!await userManager.IsInRoleAsync(user, "USER"))
+                if (user != null &&!await userManager.IsInRoleAsync(user, "USER"))
                 {
                     await userManager.AddToRoleAsync(user, "USER");
                     await userManager.UpdateAsync(user);

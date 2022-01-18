@@ -1,5 +1,8 @@
-﻿using Bookweb.Helpers;
+﻿using Bookweb.Areas.Identity.Data;
+using Bookweb.Helpers;
 using Bookweb.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,7 +24,14 @@ namespace Bookweb.API
         [HttpGet]
         public IEnumerable<Book> Get()
         {
-            return database.Books;
+            if (User.IsInRole("ADMIN"))
+            {
+                return database.Books;
+            }
+            else
+            { 
+                return database.Books.Where(b => b.IsAccepted == true).OrderBy(b => b.Title);
+            }
         }
 
         [HttpGet("/SearchByTitle/{title}")]
@@ -31,7 +41,8 @@ namespace Bookweb.API
             if (!string.IsNullOrEmpty(booktitle))
             {
                 return database.Books.Where(b => b.Title.ToLower().Contains(booktitle.ToLower()))
-                .Union(database.Books.Where(b => b.Author.ToLower().Contains(booktitle.ToLower())));
+                .Union(database.Books.Where(b => b.Author.ToLower().Contains(booktitle.ToLower())))
+                .Where(b => b.IsAccepted == true);
 
             }
             else
@@ -39,7 +50,6 @@ namespace Bookweb.API
                 return Get();
             }
         }
-
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
         public Book Get(int id)

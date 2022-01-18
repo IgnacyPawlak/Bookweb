@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Bookweb.Areas.Identity.Data
+@using Bookweb.Models
+@inject UserManager<BookwebUser> usermanager
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    IEnumerable<BookwebUser> list = usermanager.Users;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Manage Users</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in list)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                
+                <td>
+                    @{ 
+                        var a = await usermanager.GetRolesAsync(item);
+                    }
+                    @Html.DisplayFor(modelItem => a[0])
+                </td>
+                <td>
+                    <a>@item.Id</a>
+                    <a href='https://localhost:44317/api/Book/Admin/@item.Id'>Make an admin</a> |
+                    <a >Details</a> |
+                    <a >Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

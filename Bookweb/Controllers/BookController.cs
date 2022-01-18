@@ -112,7 +112,7 @@ namespace Bookweb.Controllers
                         isBookOnFavoriteList = true;
                     }
                 }
-                if (isBookOnFavoriteList==false)
+                if (isBookOnFavoriteList == false)
                 {
                     ctx.FavoriteBooks.Add(new FavoriteBook
                     {
@@ -123,7 +123,7 @@ namespace Bookweb.Controllers
                         IsAccepted = database.Books.First(b => b.ID == id).IsAccepted,
                         HolderId = userManager.GetUserId(User)
                     });
-                }                
+                }
                 ctx.SaveChanges();
             }
             return RedirectToAction("List");
@@ -147,17 +147,21 @@ namespace Bookweb.Controllers
         {
             DatabaseContext database = new DatabaseContext();
             string booktitle = title;
-            if ( !string.IsNullOrEmpty(booktitle))
+            if (!string.IsNullOrEmpty(booktitle))
             {
-                return View(database.Books.Where(b=>b.Title.ToLower().Contains(booktitle.ToLower()))
+                return View(database.Books.Where(b => b.Title.ToLower().Contains(booktitle.ToLower()))
                 .Union(database.Books.Where(b => b.Author.ToLower().Contains(booktitle.ToLower()))));
 
-            }else
+            } else
             {
                 return RedirectToAction("List");
             }
         }
 
-
+        [Authorize(Roles = ("ADMIN"))]
+        public IActionResult UsersList()
+        {
+            return View();
+        }
     }
 }
