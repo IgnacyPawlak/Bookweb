@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Bookweb.Services;
+using Bookweb.Models;
 
 namespace Bookweb.Areas.Identity.Pages.Account
 {
@@ -23,13 +25,13 @@ namespace Bookweb.Areas.Identity.Pages.Account
         private readonly SignInManager<BookwebUser> _signInManager;
         private readonly UserManager<BookwebUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _emailSender;
 
         public RegisterModel(
             UserManager<BookwebUser> userManager,
             SignInManager<BookwebUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IMailService emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -96,9 +98,13 @@ namespace Bookweb.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl},
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var mail = new MailRequest()
+                    {
+                        ToEmail = Input.Email,
+                        Subject = "Confirm your email",
+                        Body = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+                    };
+                    await _emailSender.SendEmailAsync(mail);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

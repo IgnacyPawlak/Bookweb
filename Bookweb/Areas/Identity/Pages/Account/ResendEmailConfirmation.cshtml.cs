@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Bookweb.Services;
+using Bookweb.Models;
 
 namespace Bookweb.Areas.Identity.Pages.Account
 {
@@ -18,9 +20,9 @@ namespace Bookweb.Areas.Identity.Pages.Account
     public class ResendEmailConfirmationModel : PageModel
     {
         private readonly UserManager<BookwebUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _emailSender;
 
-        public ResendEmailConfirmationModel(UserManager<BookwebUser> userManager, IEmailSender emailSender)
+        public ResendEmailConfirmationModel(UserManager<BookwebUser> userManager, IMailService emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
@@ -62,10 +64,15 @@ namespace Bookweb.Areas.Identity.Pages.Account
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            var mail = new MailRequest()
+            {
+                ToEmail = Input.Email,
+                Subject = "Confirm your email",
+                Body = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+            };
+
+            await _emailSender.SendEmailAsync(mail);
 
             ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
             return Page();
