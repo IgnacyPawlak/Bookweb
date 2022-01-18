@@ -8933,11 +8933,14 @@ a.text-success:hover, a.text-success:focus {
 }
 
 .text-info {
-  color: #17a2b8 !important;
+    color: var(--primary) !important;
+    background-color: rgba(0, 0, 0,0.4);
+    border-radius: 1rem;
+    padding: 7px;
 }
 
 a.text-info:hover, a.text-info:focus {
-  color: #117a8b !important;
+  color: var(--secondary) !important;
 }
 
 .text-warning {

@@ -88,16 +88,22 @@ button.accept-policy {
 
 /*quote of the day style*/
 .AWAD_title {
-    font-size: 40px;
-    color: #808080;
-    font-weight: bold;
+    font-size: 20px;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-style: italic;
+    /*    font-weight: bold;
+*/
 }
 
 .AWAD_quotation {
+    font-size: 20px;
+    font-style: italic;
     text-decoration: none;
     color: white;
 }
 
 .AWAD_byline {
     color: #808080;
+   font-style: italic;
 }

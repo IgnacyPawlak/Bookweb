@@ -66,7 +66,7 @@ namespace Bookweb
             using (var scope = services.CreateScope())
             {
                 var userManager = (UserManager<BookwebUser>)scope.ServiceProvider.GetService(typeof(UserManager<BookwebUser>));
-                var user = await userManager.FindByEmailAsync("test@test.com");
+                var user = await userManager.FindByEmailAsync("user@example.com");
                 user.EmailConfirmed = true;
                 await userManager.UpdateAsync(user);
 
@@ -94,7 +94,7 @@ namespace Bookweb
                     await userManager.UpdateAsync(admin);
                 }
 
-                user = await userManager.FindByEmailAsync("test@test.com");
+                user = await userManager.FindByEmailAsync("user@example.com");
 
                 if (!await userManager.IsInRoleAsync(user, "USER"))
                 {

@@ -22,10 +22,10 @@
     <div class="row w-100">
         <input id="search-title-input" type="text" class="col col-9 btn-lg" placeholder="Search by title..." @*id="title"*@ name="title"/>
        
-        <input type="submit" class="col col-3 btn btn-lg btn-primary" value="Search" />
+        <input name="searchSubmitBtn" type="submit" class="col col-3 btn btn-lg btn-primary" value="Search" />
     </div>
 }
-<div class="border-top">
+<div id="book-list" class="border-top">
     @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
     {
         List<Book> books = new List<Book>();
@@ -36,19 +36,19 @@
             {
                 if (User.IsInRole("ADMIN"))
                 {
-                    <div>
+                    <div class="book-display-line">
                         <span>@books.Count</span>
                         <span>@b.Title</span>
                         <span>@b.Author</span>
                         <span>@b.Description</span>
                         @if (User.IsInRole("ADMIN"))
                         {
-                            <span><a href="/Book/Remove?id=@b.ID">Remove</a></span>
-                            <span><a href="/Book/Accept?id=@b.ID">Accept</a></span>
+                            <span><a href="/Book/Remove?id=@b.ID" class="remove-btn">Remove</a></span>
+                            <span><a href="/Book/Accept?id=@b.ID" class="accept-btn">Accept</a></span>
                         }
                         @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
                         {
-                            <span><a href="/Book/AddToFavorite?id=@b.ID">Add to Favorite</a></span>
+                            <span><a href="/Book/AddToFavorite?id=@b.ID" class="add-to-favorite-btn">Add to Favorite</a></span>
                         }
                     </div>
                 }
@@ -62,7 +62,7 @@
                     <span>@b.Description</span>
                     @if (User.IsInRole("ADMIN"))
                     {
-                        <span><a href="/Book/Remove?id=@b.ID">Remove</a></span>
+                        <span><a href="/Book/Remove?id=@b.ID" class="remove-btn">Remove</a></span>
                     }
                     @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
                     {

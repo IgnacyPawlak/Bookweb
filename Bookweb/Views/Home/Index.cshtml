@@ -4,25 +4,35 @@
 @inject SignInManager<BookwebUser> SignInManager
 @inject UserManager<BookwebUser> UserManager
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 
 <div class="text-center">
 
     @if (SignInManager.IsSignedIn(User))
     {
-        <h1 class="display-4">Welcome back, @UserManager.GetUserName(User)!</h1>
 
+        @if (User.IsInRole("ADMIN"))
+        {
+            <h1 id="welcome-back-admin" class="display-4">Welcome back, Admin!</h1>            
+        }
 
-
-}
+        //each admin is also user, this if prevents double display
+        @if (User.IsInRole("USER") && !User.IsInRole("ADMIN"))
+        {
+            <h1 id="welcome-back-user" class="display-4">Welcome back, weary reader!</h1>
+        }
+    }
     else
     {
-        <a id="register" class="btn btn-lg btn-default m-2 w-25" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-        <a id="login" class="btn btn-lg btn-primary m-2 w-25" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+        <div id="login-signup" class="mt- mb-2">
+            <a id="register" class="btn btn-lg btn-default m-2 w-25" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+            <a id="login" class="btn btn-lg btn-primary m-2 w-25" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+
+        </div>
     }
+
     <br />
-    <script src="https://wordsmith.org/words/quote2.js" type="text/javascript"></script>
+    <div class="mb-2 p-3 ">
+        <script src="https://wordsmith.org/words/quote2.js" type="text/javascript"></script>
+    </div>
 
 </div>

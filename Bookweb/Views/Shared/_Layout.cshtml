@@ -29,12 +29,12 @@
                    
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="List">Find a book</a>
+                            <a id="find-a-book-btn" class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="List">Find a book</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User)) //if logged in (any role)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="FavoriteList">My favorite books</a>
+                                <a id="my-favorite-books-btn" class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="FavoriteList">My favorite books</a>
                             </li>
                         }
                         </ul>
