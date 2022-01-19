@@ -163,5 +163,23 @@ namespace Bookweb.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = ("ADMIN"))]
+        public async void Admin(string id)
+        {
+            BookwebUser user = userManager.Users.First(u => u.Id == id);
+            await userManager.RemoveFromRoleAsync(user,"USER");
+            await userManager.AddToRoleAsync(user, "ADMIN");
+            await userManager.UpdateAsync(user);
+        }
+        
+        [Authorize(Roles = ("ADMIN"))]
+        public async void MakeUser(string id)
+        {
+            BookwebUser user = userManager.Users.First(u => u.Id == id);
+            await userManager.RemoveFromRoleAsync(user,"ADMIN");
+            await userManager.AddToRoleAsync(user, "USER");
+            await userManager.UpdateAsync(user);
+        }
     }
 }

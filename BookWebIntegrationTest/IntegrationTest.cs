@@ -38,12 +38,13 @@ namespace BookWebIntegrationTest
             //navigate to site
             webDriver.Navigate().GoToUrl(homeUrl);
             //log in as admin
-            LoginTest(webDriver, "admin@example.com", "Admin123!", "welcome-back-admin");
+            LoginTest(webDriver, "admin@example.com", "Test123!", "welcome-back-admin");
             ShowBookListTest(webDriver, "admin");
             SearchByTitleTest(webDriver);
             AddToFavoriteTest(webDriver);
 
             LogoutTest(webDriver);
+            webDriver.Close();
         }
 
         [Test]
@@ -54,12 +55,13 @@ namespace BookWebIntegrationTest
             //navigate to site
             webDriver.Navigate().GoToUrl(homeUrl);
             //log in as user
-            LoginTest(webDriver, "user@example.com", "User123!", "welcome-back-user");
+            LoginTest(webDriver, "user@example.com", "Test123!", "welcome-back-user");
             ShowBookListTest(webDriver, "user");
             SearchByTitleTest(webDriver);
             AddToFavoriteTest(webDriver);
 
             LogoutTest(webDriver);
+            webDriver.Close();
         }
                
         [Test]
@@ -71,7 +73,7 @@ namespace BookWebIntegrationTest
             webDriver.Navigate().GoToUrl(homeUrl);
             ShowBookListTest(webDriver, "unlogged");
             SearchByTitleTest(webDriver);
-
+            webDriver.Close();
         }
 
         public void LoginTest(IWebDriver webDriver, string email, string password, string welcomeFieldId)
